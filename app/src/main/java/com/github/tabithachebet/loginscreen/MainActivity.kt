@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
+@Preview(showBackground = true)
 @Composable
 fun LogInScreen(paddingValues: PaddingValues) {
     var name by remember { mutableStateOf("") }
@@ -46,6 +46,22 @@ fun LogInScreen(paddingValues: PaddingValues) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         //UI components will be added here
+       Raw(
+
+       ){
+           Button(
+               onClick = {
+               welcomeMessage = "Welcome " + "$name"
+           }
+           ){ Text("Submit")}
+
+           Button(onClick = {
+               welcomeMessage = ""
+               name = ""
+           }){ Text("Clear")}
+       }
+
+
     }
 }
 
