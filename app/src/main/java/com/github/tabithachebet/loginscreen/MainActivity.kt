@@ -12,6 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
 import com.github.tabithachebet.loginscreen.ui.theme.LoginScreenTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,7 +34,19 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun LogInScreen(paddingValues: PaddingValues) {
+    var name by remember { mutableStateOf("") }
+    var welcomeMessage by remember { mutableStateOf("") }
 
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues)
+            .padding(24.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        //UI components will be added here
+    }
 }
 
 @Preview(showBackground = true)
