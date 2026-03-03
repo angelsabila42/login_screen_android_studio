@@ -4,17 +4,28 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.github.tabithachebet.loginscreen.ui.theme.LoginScreenTheme
+import kotlin.text.ifEmpty
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,11 +42,11 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-@Preview(showBackground = true)
 @Composable
 fun LogInScreen(paddingValues: PaddingValues) {
     var name by remember { mutableStateOf("") }
     var welcomeMessage by remember { mutableStateOf("") }
+    var nameError by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -56,24 +67,33 @@ fun LogInScreen(paddingValues: PaddingValues) {
         androidx.compose.material3.OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Enter your name") },
+            label = {
+                Text(nameError.ifEmpty { "Enter a Name" }, color = if (nameError.isNotEmpty()) Color.Red else Color.Unspecified)
+            },
             modifier = Modifier.padding(bottom = 16.dp)
         )
-       Row(
+       Row {
 
-       ){
+           //Submit Button
            Button(
                onClick = {
-               welcomeMessage = "Welcome " + "$name +! \n Have a nice day."
+               if(name.isEmpty()){
+                   nameError = "Please enter a name"
+               }else{
+                   welcomeMessage = "Welcome, $name! \n Have a great day!"
+               }
            }
-           ){ Text("Submit")}
+           ){ Text(text = "Submit")}
 
+           Spacer(modifier = Modifier.padding(6.dp))
+
+           //Clear Button
            Button(onClick = {
                welcomeMessage = ""
                name = ""
-           }){ Text("Clear")}
+               nameError = ""
+           }){ Text(text = "Clear")}
        }
-
 
     }
 }
