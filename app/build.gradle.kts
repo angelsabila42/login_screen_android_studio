@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.github.tabithachebet.loginscreen"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.github.tabithachebet.loginscreen"
